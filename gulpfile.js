@@ -7,28 +7,28 @@ const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
 
 // Copy all HTML files
-gulp.task('copyHtml', function(){
-  gulp.src('src/*.html')
+gulp.task('copyHtml', () => {
+  return gulp.src('src/*.html')
     .pipe(gulp.dest('./public'));
 });
 
 // Optimize Images
-gulp.task('imageMin', function(){
-  gulp.src('src/images/*')
+gulp.task('imageMin', () => {
+  return gulp.src('src/images/**/*.+(png|jpg|gif|svg)')
     .pipe(imagemin())
     .pipe(gulp.dest('./public/images'));
 });
 
 // Minify JS
-gulp.task('minify', function(){
-  gulp.src('src/js/*.js')
+gulp.task('minify', () => {
+  return gulp.src('src/js/*.js')
   .pipe(uglify())
   .pipe(gulp.dest('./public/js'));
 });
 
 // Scripts - For Combining Multiple JS files
-gulp.task('scripts', function(){
-  gulp.src('src/js/*.js')
+gulp.task('scripts', () => {
+  return gulp.src('src/js/*.js')
   .pipe(concat('main.js'))
   .pipe(uglify())
   .pipe(gulp.dest('./public/js'));
