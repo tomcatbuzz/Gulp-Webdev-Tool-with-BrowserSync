@@ -1,0 +1,1 @@
+console.log("This is file 1000"),console.log("This is file 2"),console.log("This is file 2"),alert("This is file 2"),console.log("shit head");

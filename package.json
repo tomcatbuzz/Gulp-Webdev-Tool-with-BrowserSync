@@ -1,0 +1,27 @@
+{
+  "name": "gulp-master-dev",
+  "version": "1.0.0",
+  "description": "Gulp Dev Kit ",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "gulp"
+  },
+  "keywords": [
+    "Gulp",
+    "Dev",
+    "Web",
+    "tools"
+  ],
+  "author": "Anthony Buzzelli",
+  "license": "MIT",
+  "dependencies": {
+    "browser-sync": "^2.23.6",
+    "concat": "^1.0.3",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-sass": "^3.2.1",
+    "gulp-uglify": "^3.0.0"
+  }
+}
