@@ -1,86 +1,67 @@
 * {
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
 
 body {
   background: #fff;
   font-family: "Arial";
-  text-align: center;
-}
+  text-align: center; }
 
 a {
   text-decoration: none;
-  color: #4b1515;
-}
+  color: #4b1515; }
 
 .container {
   max-width: 960px;
   margin: auto;
-  padding: 0 20px;
-}
+  padding: 0 20px; }
 
 header#main-header {
   padding: 1em;
   background: red;
-  color: #fff;
-}
-
-header#main-header h1 {
-  font-size: 40px;
-}
+  color: #fff; }
+  header#main-header h1 {
+    font-size: 40px; }
 
 nav#main-nav {
   background: black;
-  height: 40px;
-}
-
-nav#main-nav ul {
-  list-style: none;
-  padding-top: 10px;
-}
-
-nav#main-nav li {
-  display: inline;
-}
-
-nav#main-nav a {
-  color: #fff;
-  padding-right: 20px;
-}
-
-nav#main-nav a:hover {
-  color: #ccc;
-}
+  height: 40px; }
+  nav#main-nav ul {
+    list-style: none;
+    padding-top: 10px; }
+  nav#main-nav li {
+    display: inline; }
+  nav#main-nav a {
+    color: #fff;
+    padding-right: 20px; }
+    nav#main-nav a:hover {
+      color: #ccc; }
 
 .section, #section-a, #section-b {
-  padding: 20px;
-}
-
-.section h1, #section-a h1, #section-b h1 {
-  margin-bottom: 30px;
-}
+  padding: 20px; }
+  .section h1, #section-a h1, #section-b h1 {
+    margin-bottom: 30px; }
 
 #section-a {
   background: #555;
-  color: #fff;
-}
+  color: #fff; }
 
 #section-b {
   background: #4b1515;
-  color: #fff;
-}
+  color: #fff; }
 
 .button, .button-a, .button-b {
-  padding: 10px 15px;
-}
+  padding: 10px 15px; }
 
 .button-a {
   background: #1a1a1a;
-  color: #fff;
-}
+  color: #fff; }
 
 .button-b {
   background: #cc0000;
-  color: #fff;
-}
+  color: #fff; }
+
+.portfolio-items {
+  max-width: 960px;
+  margin: auto;
+  padding: 0 20px; }

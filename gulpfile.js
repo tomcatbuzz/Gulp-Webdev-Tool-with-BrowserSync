@@ -4,62 +4,92 @@ const imagemin = require('gulp-imagemin');
 const uglify = require('gulp-uglify');
 const concat = require('gulp-concat');
 const autoprefixer = require('gulp-autoprefixer');
+const sourcemaps = require('gulp-sourcemaps');
+const postcss = require('gulp-postcss');
 const browserSync = require('browser-sync').create();
+const series = require('gulp');
+const parallel = require('gulp');
+const { src, dest } = require('gulp');
+
+
+// Add paths ***FIX***
+// const paths = {
+//   styles: {
+//     src: 'src/styles/**/*.scss',
+//     dest: 'public/styles/'
+//   },
+//   scripts: {
+//     src: 'src/scripts/**/*.js',
+//     dest: 'public/scripts/'
+//   }
+// };
 
 // Copy all HTML files
-gulp.task('copyHtml', () => {
-  return gulp.src('src/*.html')
-    .pipe(gulp.dest('./public'));
-});
+function copyHtml() {
+  return src('src/*.html')
+    .pipe(dest('./public'));
+};
 
 // Optimize Images
-gulp.task('imageMin', () => {
-  return gulp.src('src/images/**/*.+(png|jpg|gif|svg)')
+function imageMin() {
+  return src('src/images/**/*.+(png|jpg|gif|svg)')
     .pipe(imagemin())
-    .pipe(gulp.dest('./public/images'));
-});
+    .pipe(dest('./public/images'));
+};
 
-// Minify JS
-gulp.task('minify', () => {
-  return gulp.src('src/js/*.js')
-  .pipe(uglify())
-  .pipe(gulp.dest('./public/js'));
-});
+// // Minify JS
+// function minify() {
+//   return gulp.src('./js/*.js')
+//     .pipe(uglify())
+//     .pipe(gulp.dest('./public/js'));
+// }
 
 // Scripts - For Combining Multiple JS files
-gulp.task('scripts', () => {
-  return gulp.src('src/js/*.js')
-  .pipe(concat('main.js'))
-  .pipe(uglify())
-  .pipe(gulp.dest('./public/js'));
-});
+function scripts() {
+  return src('src/js/**/*.js')
+    .pipe(concat('main.js'))
+    .pipe(uglify())
+    .pipe(dest('./public/js'))
+    .pipe(browserSync.stream());
+};
 
 // Compile SASS
-gulp.task('sass', () => {
-  return gulp.src('./src/sass/**/*.scss')
-    .pipe(sass({ 
-      outputStyle: 'expanded' 
-    }).on('error', sass.logError))
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions'],
-      cascade: false
-    }))
-    .pipe(gulp.dest('./public/css')).pipe(browserSync.stream());
-});
+function style() {
+  return src('src/scss/**/*.scss')
+    .pipe(sass()) 
+    .pipe(dest('./public/css'))
+    .pipe(browserSync.stream());
+};
 
-gulp.task('browser-sync', () => {
+function css() {
+  return src()
+  .pipe(sourcemaps.init())
+  .pipe(postcss([ autoprefixer() ]))
+  .pipe(sourcemaps.write('.'))
+  .pipe(dest('./public/css'))
+    .pipe(browserSync.stream());
+};
+
+function watch() {
   browserSync.init({
-    server: './public',
-    notify: false,
-    open: false
+    server: {
+      baseDir: './public'
+    }
   });
-});
 
-gulp.task('default', ['sass', 'browser-sync', 'copyHtml', 'imageMin', 'scripts'], () => {
-  gulp.watch('src/js/*.js', ['scripts']);
-  gulp.watch('src/images/*', ['imageMin']);
-  gulp.watch('src/*.html', ['copyHtml']);
-  gulp.watch('./src/sass/**/*.scss', ['sass']);
-  gulp.watch('./public/*.html').on('change', browserSync.reload);
-});
+  gulp.watch('src/*.html', copyHtml);
+  gulp.watch('src/scss/**/*.scss', style);
+  gulp.watch('src/js/*.js', scripts);
+  // gulp.watch('./js/*.js', minify);
+  gulp.watch('src/*.html').on('change', browserSync.reload);
+  gulp.watch('src/js/*.js').on('change', browserSync.reload);
+}
 
+gulp.task("default", gulp.series(copyHtml, style, scripts, imageMin, watch));
+
+exports.copyHtml = copyHtml;
+exports.imageMin = imageMin;
+// exports.minify = minify;
+exports.scripts = scripts;
+exports.style = style;
+exports.watch = watch;

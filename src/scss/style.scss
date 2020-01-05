@@ -91,4 +91,8 @@ nav#main-nav {
   color: set-text-color($primary-color);
 }
 
-
+.portfolio-items {
+  max-width: $container;
+  margin: auto;
+  padding: 0 20px;
+}
